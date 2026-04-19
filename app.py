@@ -1,3 +1,6 @@
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 import streamlit as st
 from openai import OpenAI
 import os, json
@@ -99,29 +102,4 @@ if prompt := st.chat_input("向知识库提问..."):
     
     st.session_state.messages.append({"role": "assistant", "content": full_response})
 
-    # 定义一个模拟的工具函数
-def get_weather(city: str):
-    # 实际开发中这里会调用天气 API
-    if "北京" in city:
-        return "北京晴，25°C，微风。"
-    return f"{city}的天气暂时查不到，建议带伞。"
-
-# 修改 AI 调用部分（简化版逻辑）
-# 告诉 AI 它有哪些工具可以用
-tools = [
-    {
-        "type": "function",
-        "function": {
-            "name": "get_weather",
-            "description": "查询指定城市的实时天气",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "city": {"type": "string", "description": "城市名，如北京"}
-                }
-            }
-        }
-    }
-]
-
-# 当 AI 返回 tool_calls 时，你在后台执行函数并把结果回传给 AI
+    
