@@ -2,5 +2,6 @@ streamlit
 openai
 python-dotenv
 pypdf
-chromadb
-sentence-transformers
+chromadb==0.4.15
+pysqlite3-binary
+protobuf==4.25.3
